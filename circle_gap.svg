@@ -1,0 +1,7 @@
+<!-- Circle Block Slot (64px außen, 48px innen) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Circle Block Slot</title>
+  <rect x="0" y="0" width="64" height="64" fill="#aaa"/>
+  <circle cx="32" cy="32" r="24"
+          fill="#ccc" stroke="#333" stroke-width="3"/>
+</svg>

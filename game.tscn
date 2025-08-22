@@ -1,0 +1,183 @@
+[gd_scene load_steps=14 format=3 uid="uid://c17e0b46sgaad"]
+
+[ext_resource type="Script" uid="uid://se8ya0wjyfqy" path="res://game.gd" id="1_7jktm"]
+[ext_resource type="Script" uid="uid://cuilalprxm24q" path="res://character_body_2d.gd" id="1_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://dugbkhd2d5ftb" path="res://block.svg" id="1_feb5d"]
+[ext_resource type="Texture2D" uid="uid://bntgwv0q5jetj" path="res://circle.svg" id="2_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://ornc7rciylv1" path="res://hex.svg" id="3_7jktm"]
+[ext_resource type="Texture2D" uid="uid://crnya2w3rosr8" path="res://circle_gap.svg" id="6_j5wjh"]
+[ext_resource type="Texture2D" uid="uid://c7fwm4iw7ttrw" path="res://hex_gap.svg" id="7_vef74"]
+[ext_resource type="Texture2D" uid="uid://blen2vku71f41" path="res://block_gap.svg" id="8_hve3p"]
+
+[sub_resource type="GDScript" id="GDScript_j5wjh"]
+resource_name = "BlockGap2D"
+script/source = "extends Area2D
+var type = \"BlockGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Game/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5wjh"]
+size = Vector2(64, 64)
+
+[sub_resource type="GDScript" id="GDScript_vef74"]
+resource_name = "CircleGap2D"
+script/source = "extends Area2D
+var type = \"CircleGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Game/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="GDScript" id="GDScript_hve3p"]
+resource_name = "HexGap2D"
+script/source = "extends Area2D
+var type = \"HexGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Game/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb5d"]
+size = Vector2(1, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_7jktm")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(663, 296, 663, 941, 1185, 941, 1185, 296)
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="BlockGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_j5wjh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BlockGap2D"]
+texture = ExtResource("8_hve3p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BlockGap2D"]
+shape = SubResource("RectangleShape2D_j5wjh")
+
+[node name="CircleGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_vef74")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/CircleGap2D"]
+texture = ExtResource("6_j5wjh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CircleGap2D"]
+shape = SubResource("RectangleShape2D_j5wjh")
+
+[node name="HexGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_hve3p")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/HexGap2D"]
+texture = ExtResource("7_vef74")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/HexGap2D"]
+shape = SubResource("RectangleShape2D_j5wjh")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(940, 64)
+motion_mode = 1
+script = ExtResource("1_fc0e3")
+
+[node name="CharacterSprite2D" type="Sprite2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+texture = ExtResource("1_feb5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_feb5d")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartTextLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 625.47
+offset_top = 200.0
+offset_right = 1222.47
+offset_bottom = 288.0
+theme_override_font_sizes/font_size = 64
+text = "Press Enter to Start"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 197.0
+offset_bottom = 163.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="PointsTextLabel" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Points: 0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Next: "
+
+[node name="BlockTab" type="TabBar" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+current_tab = 0
+tab_count = 3
+tab_0/title = "Classic Block"
+tab_0/icon = ExtResource("1_feb5d")
+tab_1/title = "Circle Block"
+tab_1/icon = ExtResource("2_fc0e3")
+tab_2/title = "Hex Block"
+tab_2/icon = ExtResource("3_7jktm")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,123 @@
+[gd_scene load_steps=6 format=3 uid="uid://df38q1a0106l5"]
+
+[ext_resource type="Script" uid="uid://cqdo6lhak5pm7" path="res://button_handler.gd" id="1_v6p8y"]
+[ext_resource type="Texture2D" uid="uid://bntgwv0q5jetj" path="res://circle.svg" id="2_ak2if"]
+[ext_resource type="Texture2D" uid="uid://ornc7rciylv1" path="res://hex.svg" id="3_05l2w"]
+[ext_resource type="Texture2D" uid="uid://dugbkhd2d5ftb" path="res://block.svg" id="4_hafda"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ak2if"]
+particle_flag_disable_z = true
+direction = Vector3(1, 0, 1)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -360.0
+tangential_accel_max = -360.0
+scale_min = 0.8
+scale_max = 1.35
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v6p8y")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 540.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="GPUParticlesHex" type="GPUParticles2D" parent="CenterContainer"]
+position = Vector2(-64, -64)
+amount = 100
+texture = ExtResource("3_05l2w")
+lifetime = 4.0
+preprocess = 4.0
+randomness = 1.0
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_ak2if")
+
+[node name="GPUParticlesCircle" type="GPUParticles2D" parent="CenterContainer"]
+position = Vector2(-64, -64)
+amount = 100
+texture = ExtResource("2_ak2if")
+lifetime = 4.0
+randomness = 1.0
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_ak2if")
+
+[node name="GPUParticlesBlock" type="GPUParticles2D" parent="CenterContainer"]
+position = Vector2(-64, -64)
+amount = 100
+texture = ExtResource("4_hafda")
+lifetime = 4.0
+preprocess = 8.0
+randomness = 1.0
+fixed_fps = 15
+process_material = SubResource("ParticleProcessMaterial_ak2if")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "SomethingAboutBlocks"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_right = 96
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="TutorialButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Tutorial"
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

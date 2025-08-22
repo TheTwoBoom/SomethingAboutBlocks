@@ -1,0 +1,11 @@
+<!-- Circle Block im Slot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Circle Block im Slot</title>
+  <!-- Slot-Hintergrund -->
+  <rect x="0" y="0" width="64" height="64" fill="#aaa"/>
+  <circle cx="32" cy="32" r="24"
+          fill="#ccc" stroke="#333" stroke-width="3"/>
+  <!-- Block, passend in Slot -->
+  <circle cx="32" cy="32" r="24"
+          fill="#E53935" stroke="#000" stroke-width="3"/>
+</svg>

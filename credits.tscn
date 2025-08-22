@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=3 uid="uid://befwesa0o27b6"]
+
+[sub_resource type="GDScript" id="GDScript_t5rx0"]
+script/source = "extends RichTextLabel
+
+
+func _on_meta_clicked(meta: Variant) -> void:
+	JavaScriptBridge.eval(\"window.open('%s','_blank')\" % meta)
+"
+
+[sub_resource type="GDScript" id="GDScript_nm7lk"]
+resource_name = "ExitButton"
+script/source = "extends Button
+
+
+func _on_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://title_screen.tscn\")
+"
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Credits"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Assets: OpenAI/ChatGPT"
+
+[node name="Label3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Game Development and Concept: TheTwoBoom"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label4" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "More Infos at"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.341176, 0.560784, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[url=https://thetwoboom.xyz/]https://thetwoboom.xyz[/url]"
+fit_content = true
+autowrap_mode = 0
+script = SubResource("GDScript_t5rx0")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 512
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "Return"
+script = SubResource("GDScript_nm7lk")
+
+[connection signal="meta_clicked" from="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/RichTextLabel" to="MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/RichTextLabel" method="_on_meta_clicked"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/Button" to="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/Button" method="_on_pressed"]

@@ -1,0 +1,8 @@
+<!-- Simple UI Arrow Right for Godot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 128 128">
+  <title>Tutorial Arrow Right</title>
+  <!-- shaft -->
+  <path d="M16 64 H84" stroke="#E53935" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <!-- head -->
+  <polygon points="84,40 116,64 84,88" fill="#E53935"/>
+</svg>

@@ -1,0 +1,11 @@
+<!-- Classic Block im Slot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Classic Block im Slot</title>
+  <!-- Hintergrund-Slot -->
+  <rect x="0" y="0" width="64" height="64" fill="#aaa"/>
+  <rect x="8" y="8" width="48" height="48" rx="7"
+        fill="#ccc" stroke="#333" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Block, skaliert in Slot -->
+  <rect x="8" y="8" width="48" height="48" rx="7"
+        fill="#1E90FF" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+</svg>

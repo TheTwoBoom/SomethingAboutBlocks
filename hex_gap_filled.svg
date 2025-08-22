@@ -1,0 +1,11 @@
+<!-- Hex Block im Slot -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Hex Block im Slot</title>
+  <!-- Slot-Hintergrund -->
+  <rect x="0" y="0" width="64" height="64" fill="#aaa"/>
+  <polygon points="32,8 51,19 51,45 32,56 13,45 13,19"
+           fill="#ccc" stroke="#333" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Block, skaliert in Slot -->
+  <polygon points="32,8 51,19 51,45 32,56 13,45 13,19"
+           fill="#43A047" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+</svg>

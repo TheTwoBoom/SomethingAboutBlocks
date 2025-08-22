@@ -1,0 +1,206 @@
+[gd_scene load_steps=16 format=3 uid="uid://c0p47g0y4ikhh"]
+
+[ext_resource type="Texture2D" uid="uid://blen2vku71f41" path="res://block_gap.svg" id="1_0cr88"]
+[ext_resource type="Script" uid="uid://se8ya0wjyfqy" path="res://game.gd" id="1_4t6hg"]
+[ext_resource type="Texture2D" uid="uid://crnya2w3rosr8" path="res://circle_gap.svg" id="2_4t6hg"]
+[ext_resource type="Texture2D" uid="uid://c7fwm4iw7ttrw" path="res://hex_gap.svg" id="3_7vrqn"]
+[ext_resource type="Script" uid="uid://cqwk0jwil2x1n" path="res://character_body_2d_tutorial.gd" id="4_0cr88"]
+[ext_resource type="Texture2D" uid="uid://dugbkhd2d5ftb" path="res://block.svg" id="5_tvjhf"]
+[ext_resource type="Texture2D" uid="uid://bntgwv0q5jetj" path="res://circle.svg" id="6_vmw6g"]
+[ext_resource type="Texture2D" uid="uid://ornc7rciylv1" path="res://hex.svg" id="7_4hjyh"]
+[ext_resource type="Script" uid="uid://dus85e1fiqap0" path="res://tutorial.gd" id="9_7vrqn"]
+[ext_resource type="Texture2D" uid="uid://cguclt65267bs" path="res://arrow.svg" id="10_bhfnd"]
+
+[sub_resource type="GDScript" id="GDScript_bsk3x"]
+resource_name = "BlockGap2D"
+script/source = "extends Area2D
+var type = \"BlockGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Tutorial/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dl7dh"]
+size = Vector2(64, 64)
+
+[sub_resource type="GDScript" id="GDScript_r4o0u"]
+resource_name = "CircleGap2D"
+script/source = "extends Area2D
+var type = \"CircleGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Tutorial/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="GDScript" id="GDScript_k08xv"]
+resource_name = "HexGap2D"
+script/source = "extends Area2D
+var type = \"HexGap2D\"
+var filled = false
+@onready var player = get_node(\"/root/Tutorial/CharacterBody2D\")
+
+func _ready() -> void:
+	body_entered.connect(_on_body_entered.bind(self))
+
+func _on_body_entered(body: Node, area: Area2D) -> void:
+	if body.name == \"CharacterBody2D\":
+		player.gap_handler(area, type)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g52lx"]
+size = Vector2(1, 1)
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_4t6hg")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(663, 296, 663, 941, 1185, 941, 1185, 296)
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="BlockGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_bsk3x")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/BlockGap2D"]
+texture = ExtResource("1_0cr88")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/BlockGap2D"]
+shape = SubResource("RectangleShape2D_dl7dh")
+
+[node name="CircleGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_r4o0u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/CircleGap2D"]
+texture = ExtResource("2_4t6hg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CircleGap2D"]
+shape = SubResource("RectangleShape2D_dl7dh")
+
+[node name="HexGap2D" type="Area2D" parent="Node2D"]
+unique_name_in_owner = true
+script = SubResource("GDScript_k08xv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/HexGap2D"]
+texture = ExtResource("3_7vrqn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/HexGap2D"]
+shape = SubResource("RectangleShape2D_dl7dh")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(956, 64)
+motion_mode = 1
+script = ExtResource("4_0cr88")
+
+[node name="CharacterSprite2D" type="Sprite2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+texture = ExtResource("5_tvjhf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_g52lx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 197.0
+offset_bottom = 163.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="PointsTextLabel" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Points: 0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Next: "
+
+[node name="TabBar" type="TabBar" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+current_tab = 0
+tab_count = 3
+tab_0/title = "Classic Block"
+tab_0/icon = ExtResource("5_tvjhf")
+tab_1/title = "Circle Block"
+tab_1/icon = ExtResource("6_vmw6g")
+tab_2/title = "Hex Block"
+tab_2/icon = ExtResource("7_4hjyh")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+offset_top = 880.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="MarginTutorial" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginTutorial"]
+layout_mode = 2
+script = ExtResource("9_7vrqn")
+
+[node name="TutorialLabel" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginTutorial/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Welcome in SomethingAboutBlocks, a mediocre game about shapes...."
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/Control/PanelContainer/MarginTutorial/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 48
+text = "Continue"
+
+[node name="Arrow2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(618, 322)
+scale = Vector2(2, 2)
+texture = ExtResource("10_bhfnd")
+
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/MarginTutorial/HBoxContainer/ContinueButton" to="CanvasLayer/Control/PanelContainer/MarginTutorial/HBoxContainer" method="_on_continue_button_pressed"]

@@ -1,0 +1,6 @@
+<!-- Hex Block, grün -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 128 128">
+  <title>Hex Block, grün</title>
+  <polygon points="64,16 102,38 102,90 64,112 26,90 26,38"
+           fill="#43A047" stroke="#000" stroke-width="8" stroke-linejoin="round"/>
+</svg>
